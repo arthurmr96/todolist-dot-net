@@ -38,7 +38,9 @@ namespace TodoListBackend.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok("User registered successfully");
+            var token = _authService.GenerateJwtToken(user);
+
+            return Ok(new { Token = token });
         }
 
         [HttpPost("login")]
