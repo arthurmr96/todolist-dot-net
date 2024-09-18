@@ -31,7 +31,8 @@ namespace TodoListBackend.Controllers
             {
                 Name = registerDto.Name,
                 Email = registerDto.Email,
-                PasswordHash = _authService.HashPassword(registerDto.Password)
+                PasswordHash = _authService.HashPassword(registerDto.Password),
+                RefreshToken = _authService.GenerateRefreshToken()
             };
 
             _context.Users.Add(user);
