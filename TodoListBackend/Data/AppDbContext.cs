@@ -8,6 +8,7 @@ namespace TodoListBackend.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Todo> Todos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -16,6 +17,11 @@ namespace TodoListBackend.Data
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
+
+            modelBuilder.Entity<Todo>()
+                .HasOne(t => t.User)
+                .WithMany(u => u.TodoList)
+                .HasForeignKey(t => t.UserId);
         }
     }
 }
